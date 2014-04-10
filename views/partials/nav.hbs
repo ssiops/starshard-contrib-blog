@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Blog</a>
+      <a class="navbar-brand" href="/">Starshard</a>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -15,13 +15,16 @@
         <li{{#if nav.index}} class="active"{{/if}}>
           <a href="/">Home</a>
         </li>
+        <li{{#if nav.blog}} class="active"{{/if}}>
+          <a href="/blog">Blog</a>
+        </li>
         <li{{#if nav.archive}} class="active"{{/if}}>
           <a href="/archive">Archive</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li{{#if user}} class="dropdown{{#if nav.profile}} active{{/if}}"{{/if}}> 
-          <a{{#if user}} href="#" class="dropdown-toggle" data-toggle="dropdown"{{/if}}{{#unless user}} href="/login?redirect=/blog"{{/unless}}>#!SSIOPS&gt;&gt;{{#unless user}}STD{{/unless}}{{#if user}}{{user.name}}{{/if}}</a>
+          <a{{#if user}} href="#" class="dropdown-toggle" data-toggle="dropdown"{{/if}}{{#unless user}} href="/login?redirect=blog"{{/unless}}>#!SSIOPS&gt;&gt;{{#unless user}}STD{{/unless}}{{#if user}}{{user.name}}{{/if}}</a>
           {{#if user}}{{> nav_user_dropdown user}}{{/if}}
         </li>
       </ul>

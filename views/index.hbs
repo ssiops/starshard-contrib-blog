@@ -1,4 +1,20 @@
-<div class="container">
+<script src="/blog/js/app-index{{#if production}}.min{{/if}}.js"></script>
+<div class="starshard-header">
+  <div class="blog-carousel" ng-controller="carouselCtrl">
+    <carousel interval="interval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <img class="carousel-img" ng-src="/usercontent/blog/\{{slide.image}}">
+        <div class="carousel-caption">
+          <h4>Slide \{{$index + 1}}</h4>
+          <p>\{{slide.text}}</p>
+        </div>
+      </slide>
+    </carousel>
+  </div>
+</div>
+
+
+<div class="container spaced-top">
   <div class="cbg">
     <h1>Hello, blog.</h1>
   </div>
