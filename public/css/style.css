@@ -1,0 +1,7 @@
+.blog-carousel {
+  height: 540px;
+}
+.blog-carousel .carousel-img {
+  margin: auto;
+  max-height: 100%;
+}

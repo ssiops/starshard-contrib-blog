@@ -1,4 +1,4 @@
-angular.module('default', ['ui.bootstrap']);
+angular.module('blog', ['ui.bootstrap']);
 
 !function () {
   
