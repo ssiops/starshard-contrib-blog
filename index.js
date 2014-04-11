@@ -13,6 +13,7 @@ shard.routes = [
     }
   }
 ].concat(
+  require('./content.js'),
   require('./util.js')
 );
 
