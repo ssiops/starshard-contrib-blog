@@ -1,4 +1,5 @@
 var util = require('util');
+var view = require('./lib/view.js');
 
 module.exports = [
   {

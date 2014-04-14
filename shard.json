@@ -1,6 +1,6 @@
 {
   "name": "blog",
   "description": "Blog platform built on starshard with angular.js",
-  "useDB": "true",
+  "usedb": "true",
   "static": "public"
 }
