@@ -46,7 +46,7 @@ module.exports = [
       var blog = new Blog(req.body);
       db.update({displaytitle: blog.displaytitle}, blog, 'blogs', {upsert: true}, function (err) {
         if (err) return console.log(util.inspect(err));
-        return res.stauts(204).send();
+        return res.send({redirect: blog.displaytitle});
       });
     }
   }
