@@ -37,6 +37,19 @@ module.exports = [
     }
   },
   {
+    path: '/archive/:title',
+    method: 'DELETE',
+    respond: function (req, res, db) {
+      if (typeof req.session.user === 'undefined' || req.session.user.admin !== true) {
+        return res.status(403).send({err: 'Forbidden.'});
+      }
+      db.remove({displaytitle: req.params.title}, 'blogs', {}, function (err) {
+        if (err) return console.log(util.inspect(err));
+        return res.status(204).send();
+      });
+    }
+  },
+  {
     path: '/archive',
     method: 'PUT',
     respond: function (req, res, db) {
