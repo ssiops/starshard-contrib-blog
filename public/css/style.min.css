@@ -1,3 +1,6 @@
+.align-right {
+  text-align: right;
+}
 .blog-carousel {
   height: 540px;
 }
@@ -40,5 +43,23 @@
 .blog-date {
   color: #888;
   font-size: 12px;
-  text-align: right;
+}
+.blog-comment {
+  padding: 0 4px 4px 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.blog-comment .blog-comment-body {
+  padding-bottom: 4px;
+}
+.blog-comment .blog-comment-footer {
+  font-size: 13px;
+  color: #aaa;
+}
+.blog-comment .blog-comment-footer a {
+  color: #cde;
+}
+.blog-comment .blog-comment-footer a:hover,
+.blog-comment .blog-comment-footer a:active {
+  color: #def;
 }

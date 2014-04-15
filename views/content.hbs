@@ -1,4 +1,6 @@
-<div class="container spaced-top">
+<script src="/blog/js/app-content{{#if production}}.min{{/if}}.js"></script>
+
+<div class="container spaced-top" ng-controller="contentCtrl" ng-init="displaytitle='{{blog.displaytitle}}';getPosts();getComments()">
   <div class="row">
     <div class="col-md-9">
       <div class="cbg blog-header">
@@ -10,27 +12,49 @@
       </div>
       <div class="cbg blog-body">
 {{#md}}
-{{blog.body}}
+{{{blog.body}}}
 {{/md}}
       {{#if blog.date}}
-      <p class="blog-date">Last edited on {{blog.date}}</p>
+      <p class="blog-date align-right">Last edited on {{blog.date}}</p>
       {{/if}}
       </div>
       <div class="cbg">
         <h3>Comments</h3>
-        <div class="blog-comments loading"></div>
+        <div id="comments-loading" class="loading fade in"></div>
+        <div class="blog-comments">
+          <div class="blog-comment" ng-repeat="comment in comments">
+            <div class="blog-comment-body">\{{comment.body}}</div>
+            <div class="blog-comment-footer">- <a href="/profile/\{{comment.author}}">\{{comment.author}}</a>, <span class="blog-comment-date">\{{comment.date}}</span></div>
+          </div>
+          <div class="blog-comment-new">
+            {{#if user}}
+            <div class="form-group">
+              <textarea class="form-control" name="comment" id="comment" rows="3" ng-model="newComment.body" placeholder="New Comment"></textarea>
+            </div>
+            <p><button class="btn btn-success" ng-click="comment()"><i class="glyphicon glyphicon-send"></i> Send</button></p>
+            {{else}}
+            <p>Please <a href="/login?redirect=blog/archive/{{blog.displaytitle}}" class="btn btn-primary">Sign in</a> or <a href="/register" class="btn btn-default">Register</a> to post comment here.</p>
+            {{/if}}
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="cbg">
         <h3>Other posts</h3>
-        <div class="other-posts loading small"></div>
+        <div id="other-posts-loading" class="loading small fade in"></div>
+        <div class="other-posts list-group">
+          <a href="/blog/archive/\{{item.displaytitle}}/" class="list-group-item" ng-repeat="item in otherposts">
+            <h4 class="list-group-item-heading">\{{item.title}}</h4>
+            <p class="list-group-item-text">\{{item.abstract}}</p>
+          </a>
+        </div>
       </div>
       {{#if user.admin}}
       <div class="cbg">
         <h3>Adminstrative</h3>
         <a href="edit" class="btn btn-warning">Edit</a>
-        <a href="#" class="btn btn-danger">Remove</a>
+        <a href="#" class="btn btn-danger" ng-click="remove()">Remove</a>
       </div>
       {{/if}}
     </div>
