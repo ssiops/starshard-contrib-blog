@@ -4,9 +4,14 @@
       <div class="cbg blog-header">
         <h1>{{blog.title}}</h1>
         <p>{{blog.abstract}}</p>
+        {{#if blog.tags}}
+        <p>{{#each blog.tags}}<a href="#" class="label label-default">{{this}}</a>{{/each}}</p>
+        {{/if}}
       </div>
       <div class="cbg blog-body">
-        {{blog.body}}
+{{#md}}
+{{blog.body}}
+{{/md}}
       </div>
       <div class="cbg blog-comments">
         <h3>Comments</h3>
