@@ -4,7 +4,7 @@ function editorCtrl ($scope, $window, $http) {
   $scope.input = '';
   $scope.focus = false;
   var tags = angular.element($window.document.getElementById('blog-tags')).attr('data-value');
-  if (tags.length > 0)
+  if (tags && tags.length > 0)
     $scope.tags = tags.split(',');
   $scope.addTag = function () {
     if ($scope.input.length < 1) return;
@@ -68,7 +68,7 @@ function editorCtrl ($scope, $window, $http) {
     }
     $http.put('/blog/archive', blog).success(function (data, status) {
       if (data && data.redirect) {
-        $window.location.href = '/blog/archive/' + data.redirect;
+        $window.location.href = '/blog/archive/' + data.redirect + '/';
       }
     });
   }

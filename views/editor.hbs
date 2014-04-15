@@ -7,7 +7,7 @@
     </div>
     <form class="col-md-9" ng-controller="editorCtrl"{{#if blog}} ng-init="title='{{blog.title}}';abstract='{{blog.abstract}}'"{{/if}}>
       <div class="cbg">
-        <div class="form-group\{{err.title? ' has-error': ''}}"><input type="text" id="title" name="title" class="form-control" placeholder="Blog title" ng-model="title"</div>
+        <div class="form-group\{{err.title? ' has-error': ''}}"><input type="text" id="title" name="title" class="form-control" placeholder="Blog title" ng-model="title"></div>
         <div class="form-group\{{err.abstract? ' has-error': ''}}"><input type="text" id="abstract" class="form-control" placeholder="Blog Abstract" ng-model="abstract"></div>
         <div id="blog-tags" class="blog-tags form-control \{{focus? 'focus': ''}}"{{#if blog}} data-value="{{blog.tags}}"{{/if}}>
           <span class="label label-default" ng-repeat="tag in tags">\{{tag}} <a href="#" ng-click="removeTag($index)"><i class="glyphicon glyphicon-remove"></i></a></span>
