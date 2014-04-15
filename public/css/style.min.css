@@ -37,3 +37,8 @@
 .blog-content-editor .btn-toolbar {
   margin-bottom: 8px;
 }
+.blog-date {
+  color: #888;
+  font-size: 12px;
+  text-align: right;
+}

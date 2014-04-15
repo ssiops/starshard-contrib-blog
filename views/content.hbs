@@ -5,22 +5,34 @@
         <h1>{{blog.title}}</h1>
         <p>{{blog.abstract}}</p>
         {{#if blog.tags}}
-        <p>{{#each blog.tags}}<a href="#" class="label label-default">{{this}}</a>{{/each}}</p>
+        <p>{{#each blog.tags}}<a href="/blog/archive?t={{this}}" class="label label-default">{{this}}</a>{{/each}}</p>
         {{/if}}
       </div>
       <div class="cbg blog-body">
 {{#md}}
 {{blog.body}}
 {{/md}}
+      {{#if blog.date}}
+      <p class="blog-date">Last edited on {{blog.date}}</p>
+      {{/if}}
       </div>
-      <div class="cbg blog-comments">
+      <div class="cbg">
         <h3>Comments</h3>
+        <div class="blog-comments loading"></div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="cbg">
         <h3>Other posts</h3>
+        <div class="other-posts loading small"></div>
       </div>
+      {{#if user.admin}}
+      <div class="cbg">
+        <h3>Adminstrative</h3>
+        <a href="edit" class="btn btn-warning">Edit</a>
+        <a href="#" class="btn btn-danger">Remove</a>
+      </div>
+      {{/if}}
     </div>
   </div>
 </div>
