@@ -32,11 +32,25 @@ module.exports = [
         option.limit = parseInt(req.query.l);
       db.find(filter, 'blogs', option, function (err, docs) {
         if (err) return console.log(util.inspect(err));
-        if (docs.length < 1)
-          return res.status(404).send();
+        if (docs.length < 1) {
+          if (req.accepts('application/json', 'text/html') == 'application/json')
+            res.send({msg: 'No blogs were found.'});
+          else
+            view.send(res, 'list.hbs', {
+              nav: {archive: true},
+              user: req.session.user
+            });
+        }
         for (var i = 0; i < docs.length; i++)
           delete docs[i].body;
-        res.send({list: docs});
+        if (req.accepts('application/json', 'text/html') == 'application/json')
+          res.send({list: docs});
+        else
+          view.send(res, 'list.hbs', {
+            nav: {archive: true},
+            user: req.session.user,
+            blogs: docs
+          });
       });
     }
   }
