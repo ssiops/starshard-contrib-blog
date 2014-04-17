@@ -11,7 +11,10 @@
         <div class="form-group\{{err.abstract? ' has-error': ''}}"><input type="text" id="abstract" class="form-control" placeholder="Blog Abstract" ng-model="abstract"></div>
         <div id="blog-tags" class="blog-tags form-control \{{focus? 'focus': ''}}"{{#if blog}} data-value="{{blog.tags}}"{{/if}}>
           <span class="label label-default" ng-repeat="tag in tags">\{{tag}} <a href="#" ng-click="removeTag($index)"><i class="glyphicon glyphicon-remove"></i></a></span>
-          <input type="text" id="tags" name="tags" class="input-tag" placeholder="Tag" ng-model="input" ng-blur="addTag();focus=false" ng-focus="focus=true">
+          <div class="input-tag">
+            <button class="btn btn-primary btn-xs" type="button" ng-click="addTag()"><i class="glyphicon glyphicon-plus"></i></button>
+            <input type="text" id="tags" name="tags" placeholder="Tag" ng-model="input" ng-blur="focus=false" ng-focus="focus=true" typeahead="tag for tag in getTags($viewValue) | filter:$viewValue | limitTo:8" typeahead-loading="loadingTags" typeahead-wait-ms="500">
+          </div>
         </div>
       </div>
       <div class="cbg">

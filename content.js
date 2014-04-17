@@ -1,7 +1,31 @@
 var util = require('util');
+var async = require('async');
 var view = require('./lib/view.js');
 
 module.exports = [
+  {
+    path: '/archive/tags',
+    method: 'GET',
+    respond: function (req, res, db) {
+      db.aggregate([{$unwind:"$tags"}, {$group:{_id:"$tags"}}], 'blogs', {}, function (err, results) {
+        if (err) return console.log(util.inspect(err));
+        if (results.length < 1) return res.send({msg: 'No tags were found.'});
+        async.map(results, function (result, callback) {
+          return callback(null, result._id);
+        }, function (err, results) {
+          if (typeof req.query.t !== 'undefined') {
+            pattern = new RegExp('^' + req.query.t);
+            async.filter(results, function (tag, callback) {
+              return callback(pattern.test(tag));
+            }, function (filtered) {
+              return res.send({list: filtered});
+            });
+          } else 
+            return res.send({list: results});
+        })
+      });
+    }
+  },
   {
     path: '/archive/:title',
     method: 'GET',
@@ -26,8 +50,13 @@ module.exports = [
     respond: function (req, res, db) {
       var filter = {};
       var option = {limit: 3, sort: {_id: 0}};
-      if (typeof req.query.t !== 'undefined')
-        filter.tags = req.query.t.split('_');
+      if (typeof req.query.t !== 'undefined' && req.query.t.length > 0) {
+        var tags = req.query.t.split('_');
+        if (tags.length > 1)
+          filter.tags = {$all: tags};
+        else
+          filter.tags = req.query.t;
+      }
       if (typeof req.query.l !== 'undefined' && parseInt(req.query.l) < 10)
         option.limit = parseInt(req.query.l);
       db.find(filter, 'blogs', option, function (err, docs) {

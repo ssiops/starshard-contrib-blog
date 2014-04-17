@@ -27,13 +27,17 @@
     margin: 0 4px 4px 0;
   }
   .input-tag {
-    min-width: 320px;
-    border: none;
-    box-shadow: none;
-    background: transparent;
+    display: inline-block;
+    max-width: 320px;
     margin-bottom: 4px;
-    &:active, &:focus, &:hover {
-      outline: none;
+    input {
+      max-width: 300px;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      &:active, &:focus, &:hover {
+        outline: none;
+      }
     }
   }
 }
