@@ -4,6 +4,15 @@
   <div class="row">
     <div class="col-md-9">
       <div class="cbg blog-header">
+        {{#if user.admin}}
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="edit">Edit</a></li>
+            <li><a href="#" ng-click="remove()">Remove</a></li>
+          </ul>
+        </div>
+        {{/if}}
         <h1>{{blog.title}}</h1>
         <p>{{blog.abstract}}</p>
         {{#if blog.tags}}
@@ -22,16 +31,17 @@
         <h3>Comments</h3>
         <div id="comments-loading" class="loading fade in"></div>
         <div class="blog-comments">
+          <p ng-if="noComment">Nobody has posted thier comments yet.</p>
           <div class="blog-comment" ng-repeat="comment in comments">
-            <div class="blog-comment-body">\{{comment.body}}</div>
+            <div class="blog-comment-body">\{{comment.content}}</div>
             <div class="blog-comment-footer">- <a href="/profile/\{{comment.author}}">\{{comment.author}}</a>, <span class="blog-comment-date">\{{comment.date}}</span></div>
           </div>
           <div class="blog-comment-new">
             {{#if user}}
-            <div class="form-group">
-              <textarea class="form-control" name="comment" id="comment" rows="3" ng-model="newComment.body" placeholder="New Comment"></textarea>
+            <div class="form-group\{{err.comment?' has-error':''}}">
+              <textarea class="form-control" name="comment" id="comment" rows="3" ng-model="newComment" placeholder="New Comment"></textarea>
             </div>
-            <p><button class="btn btn-success" ng-click="comment()"><i class="glyphicon glyphicon-send"></i> Send</button></p>
+            <p><button class="btn btn-success" ng-click="postComment()"><i class="glyphicon glyphicon-send"></i> Send</button></p>
             {{else}}
             <p>Please <a href="/login?redirect=blog/archive/{{blog.displaytitle}}" class="btn btn-primary">Sign in</a> or <a href="/register" class="btn btn-default">Register</a> to post comment here.</p>
             {{/if}}
@@ -50,13 +60,6 @@
           </a>
         </div>
       </div>
-      {{#if user.admin}}
-      <div class="cbg">
-        <h3>Adminstrative</h3>
-        <a href="edit" class="btn btn-warning">Edit</a>
-        <a href="#" class="btn btn-danger" ng-click="remove()">Remove</a>
-      </div>
-      {{/if}}
     </div>
   </div>
 </div>

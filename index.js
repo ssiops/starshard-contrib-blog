@@ -15,6 +15,7 @@ shard.routes = [
 ].concat(
   require('./content.js'),
   require('./edit.js'),
+  require('./comment.js'),
   require('./util.js')
 );
 
