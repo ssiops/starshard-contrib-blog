@@ -15,7 +15,7 @@ function contentCtrl($scope, $window, $http) {
       if (data.list)
         $scope.otherposts = data.list;
       if (data.err)
-        console.log(err);
+        console.log(data.err);
     });
   }
   $scope.getComments = function () {
@@ -24,9 +24,9 @@ function contentCtrl($scope, $window, $http) {
       if (data.comments)
         $scope.comments = data.comments;
       if (data.err)
-        console.log(err);
+        console.log(data.err);
       if (data.msg)
-        console.log(msg);
+        console.log(data.msg);
     });
   }
   $scope.postComment = function () {
@@ -37,9 +37,19 @@ function contentCtrl($scope, $window, $http) {
       if (data.comment)
         $scope.comments.push(data.comment);
       if (data.err)
-        console.log(err);
+        console.log(data.err);
       if (data.msg)
-        console.log(msg);
+        console.log(data.msg);
+    });
+  }
+  $scope.removeComment = function ($index) {
+    $http.delete('/blog/archive/' + $scope.displaytitle + '/comments/' + $scope.comments[$index]._id).success(function (data, status) {
+      if (status == 202)
+        $scope.comments.splice($index, 1);
+      if (data.err)
+        console.log(data.err);
+      if (data.msg)
+        console.log(data.msg);
     });
   }
 }

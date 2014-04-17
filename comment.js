@@ -27,21 +27,21 @@ module.exports = [
     }
   },
   {
-    path: '/archive/:title/comments',
+    path: '/archive/:title/comments/:id',
     method: 'DELETE',
     respond: function (req, res, db) {
       if (typeof req.session.user === 'undefined') {
         return res.status(403).send({err: 'Forbidden.'});
       }
-      db.find({blog: req.params.title, _id: new db.util.ObjectID(req.body._id)}, 'comments', {limit: 1}, function (err, docs) {
+      db.find({blog: req.params.title, _id: new db.util.ObjectID(req.params.id)}, 'comments', {limit: 1}, function (err, docs) {
         if (err) return console.log(util.inspect(err));
         if (docs.length < 1) return res.send({msg: 'The specified comment cannot be found.'});
         if (!req.session.user.admin) {
           if (req.session.user.name != docs[0].author)
             return res.status(403).send({err: 'Forbidden.'});
         }
-        res.status(204).send();
-        db.remove({blog: req.params.title, _id: new db.util.ObjectID(req.body._id)}, 'comments', {}, function (err) {
+        res.status(202).send();
+        db.remove({blog: req.params.title, _id: new db.util.ObjectID(req.params.id)}, 'comments', {}, function (err) {
           if (err) return console.log(util.inspect(err)); 
         });
       });

@@ -1,6 +1,6 @@
 <script src="/blog/js/app-content{{#if production}}.min{{/if}}.js"></script>
 
-<div class="container spaced-top" ng-controller="contentCtrl" ng-init="displaytitle='{{blog.displaytitle}}';getPosts();getComments()">
+<div class="container spaced-top" ng-controller="contentCtrl" ng-init="displaytitle='{{blog.displaytitle}}';user='{{user.name}}';getPosts();getComments()">
   <div class="row">
     <div class="col-md-9">
       <div class="cbg blog-header">
@@ -33,6 +33,17 @@
         <div class="blog-comments">
           <p ng-if="noComment">Nobody has posted thier comments yet.</p>
           <div class="blog-comment" ng-repeat="comment in comments">
+            {{#if user}}
+            <div class="btn-group blog-comment-menu pull-right">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Reply</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Flag as inappropriate</a></li>
+                <li><a href="#" ng-if="comment.author == user || {{user.admin}}" ng-click="removeComment($index)">Delete</a></li>
+              </ul>
+            </div>
+            {{/if}}
             <div class="blog-comment-body">\{{comment.content}}</div>
             <div class="blog-comment-footer">- <a href="/profile/\{{comment.author}}">\{{comment.author}}</a>, <span class="blog-comment-date">\{{comment.date}}</span></div>
           </div>

@@ -64,3 +64,9 @@
 .blog-comment .blog-comment-footer a:active {
   color: #def;
 }
+.blog-comment .blog-comment-menu button {
+  opacity: 0.5;
+}
+.blog-comment .blog-comment-menu:hover button {
+  opacity: 1;
+}
