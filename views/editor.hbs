@@ -1,3 +1,4 @@
+<script src="/blog/js/angular/angular-file-upload{{#if production}}.min{{/if}}.js"></script>
 <script src="/blog/js/app-editor{{#if production}}.min{{/if}}.js"></script>
 
 <div class="container spaced-top">
@@ -28,7 +29,7 @@
               <button type="button" class="btn btn-default" ng-model="toolbar.link" ng-click="insert({simple: '[TEXT](HREF)'})"><i class="glyphicon glyphicon-link"></i></button>
               <button type="button" class="btn btn-default" ng-model="toolbar.quote" ng-click="insert({home: '> '})"><i class="glyphicon glyphicon-comment"></i></button>
               <button type="button" class="btn btn-default" ng-model="toolbar.code" ng-click="insert({wrap: '`'})"><i class="glyphicon glyphicon-stop"></i></button>
-              <button type="button" class="btn btn-default" ng-model="toolbar.image" ng-click="insert({simple: '![ALT](SRC)'})"><i class="glyphicon glyphicon-picture"></i></button>
+              <button type="button" class="btn btn-default" ng-model="toolbar.image" ng-click="openModal()"><i class="glyphicon glyphicon-picture"></i></button>
             </div>
             <div class="btn-group">
               <button type="button" class="btn btn-default" ng-model="toolbar.ul" ng-click="insert({home: '* '})"><i class="glyphicon glyphicon-list"></i></button>
@@ -46,3 +47,23 @@
     </form>
   </div>
 </div>
+
+<script type="text/ng-template" id="imgUpload.html">
+<div class="modal-header">
+  <h3>Image upload</h3>
+</div>
+<div class="modal-body">
+  <div class="well img-drop-zone" ng-file-drop ng-file-over>
+      Drop image here
+  </div>
+  <div class="well">
+    <input ng-file-select type="file" name="img" accept="image/*">
+  </div>
+  <div class="progress progress-striped" style="">
+    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>
+</script>

@@ -1,4 +1,6 @@
-function editorCtrl ($scope, $window, $http) {
+angular.module('blog', ['angularFileUpload', 'ui.bootstrap']);
+
+function editorCtrl ($scope, $window, $http, $modal) {
   $scope.err = {};
   $scope.tags = [];
   $scope.input = '';
@@ -81,4 +83,38 @@ function editorCtrl ($scope, $window, $http) {
       return res.data.list;
     });
   }
+  $scope.openModal = function () {
+    var modalInstance = $modal.open({
+      templateUrl: 'imgUpload.html',
+      controller: modalCtrl
+    });
+
+    modalInstance.result.then(function (src) {
+      $scope.insert({simple: '![ALT](' + src + ')'});
+    }, function () {
+      console.info('Modal dismissed at: ' + new Date());
+    });
+  }
+}
+
+function modalCtrl ($scope, $modalInstance, $fileUploader) {
+  $scope.ok = function () {
+    $modalInstance.close();
+  }
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  }
+
+  $scope.uploader = $fileUploader.create({
+    scope: $scope,
+    url: '/usercontent/blog/img',
+    autoUpload: true
+  });
+
+  $scope.uploader.progress = 0;
+
+  $scope.uploader.bind('success', function (event, xhr, item, response) {
+    $modalInstance.close('/usercontent/blog/' + response.filename);
+  });
 }

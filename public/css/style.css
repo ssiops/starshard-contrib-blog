@@ -74,3 +74,12 @@
 .blog-comment .blog-comment-menu:hover button {
   opacity: 1;
 }
+.img-drop-zone {
+  opacity: .8;
+  border: dotted 3px #888;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.img-drop-zone.ng-file-over {
+  opacity: 1;
+  border-color: #33b5e5;
+}
