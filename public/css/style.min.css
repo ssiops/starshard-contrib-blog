@@ -75,11 +75,14 @@
   opacity: 1;
 }
 .img-drop-zone {
-  opacity: .8;
+  text-align: center;
   border: dotted 3px #888;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.03);
 }
 .img-drop-zone.ng-file-over {
-  opacity: 1;
   border-color: #33b5e5;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+.img-drop-zone input[type="file"] {
+  display: inline-block;
 }

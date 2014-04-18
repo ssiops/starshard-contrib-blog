@@ -54,10 +54,8 @@
 </div>
 <div class="modal-body">
   <div class="well img-drop-zone" ng-file-drop ng-file-over>
-      Drop image here
-  </div>
-  <div class="well">
-    <input ng-file-select type="file" name="img" accept="image/*">
+      Drop image here, or <button class="btn btn-primary" ng-click="showFileInput=1">Choose an image</button>
+      <input ng-file-select type="file" name="imageInput" id="imageInput" accept="image/*" ng-show="showFileInput">
   </div>
   <div class="progress progress-striped" style="">
     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
