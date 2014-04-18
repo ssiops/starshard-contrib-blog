@@ -49,7 +49,7 @@ module.exports = [
     method: 'GET',
     respond: function (req, res, db) {
       var filter = {};
-      var option = {limit: 3, sort: {_id: 0}};
+      var option = {sort: {_id: 0}};
       if (typeof req.query.t !== 'undefined' && req.query.t.length > 0) {
         var tags = req.query.t.split('_');
         if (tags.length > 1)
@@ -57,7 +57,7 @@ module.exports = [
         else
           filter.tags = req.query.t;
       }
-      if (typeof req.query.l !== 'undefined' && parseInt(req.query.l) < 10)
+      if (typeof req.query.l !== 'undefined')
         option.limit = parseInt(req.query.l);
       db.find(filter, 'blogs', option, function (err, docs) {
         if (err) return console.log(util.inspect(err));

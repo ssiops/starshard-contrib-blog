@@ -21,6 +21,11 @@
         <li{{#if nav.archive}} class="active"{{/if}}>
           <a href="/blog/archive">Archive</a>
         </li>
+        {{#if user.admin}}
+        <li{{#if nav.new}} class="active"{{/if}}>
+          <a href="/blog/new">New</a>
+        </li>
+        {{/if}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li{{#if user}} class="dropdown{{#if nav.profile}} active{{/if}}"{{/if}}> 

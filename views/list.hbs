@@ -1,35 +1,40 @@
 <script src="/blog/js/app-list{{#if production}}.min{{/if}}.js"></script>
 
-<div class="container spaced-top">
+<div class="container spaced-top" ng-controller="blogListCtrl">
   <div class="row">
     <div class="col-md-8">
       <div class="cbg">
-        {{#if blogs}}
-        {{#each blogs}}
-        <div class="blog-summary">
-          <h2><a href="/blog/archive/{{displaytitle}}/">{{title}}</a></h2>
-          <p>{{#each tags}}<span class="label label-default">{{this}}</span>{{/each}}</p>
-          <p>{{abstract}}</p>
-          <p class="blog-date">{{date}}</p>
+        <div id="blogs-loading" class="loading"></div>
+        <h4 ng-show="(blogs | filter:search).length < 1">Nothing was found. Move along.</h4>
+        <div class="blog-summary" ng-repeat="blog in blogs | filter:search">
+          {{#if user.admin}}
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/blog/archive/\{{blog.displaytitle}}/edit">Edit</a></li>
+              <li><a href="#" ng-click="remove($index)">Delete</a></li>
+            </ul>
+          </div>
+          {{/if}}
+          <h2><a href="/blog/archive/{{displaytitle}}/">\{{blog.title}}</a></h2>
+          <p><span class="label label-default" ng-repeat="tag in blog.tags">\{{tag}}</span></p>
+          <p>\{{blog.abstract}}</p>
+          <p class="blog-date">\{{blog.date}}</p>
         </div>
-        {{/each}}
-        {{else}}
-        <h2>No blogs were found.</h2>
-        {{/if}}
       </div>
     </div>
     <div class="col-md-4">
-      <form action="/blog/archive" class="cbg" ng-controller="tagSearchCtrl">
-        <h3>Filter</h3>
+      <div class="cbg">
+        <h3>Search</h3>
         <div class="input-group">
-          <input type="text" name="t" autocomplete="off" ng-model="searchTags" placeholder="Search tags" typeahead="tag for tag in getTags($viewValue) | filter:$viewValue | limitTo:8" typeahead-loading="loadingTags" typeahead-wait-ms="800" class="form-control">
+          <input type="text" class="form-control" autocomplete="off" ng-model="search" placeholder="Search" typeahead="tag for tag in getTags($viewValue) | filter:$viewValue | limitTo:8" typeahead-loading="loadingTags" typeahead-wait-ms="800">
           <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-primary disabled" type="button"><i class="glyphicon glyphicon-search"></i></button>
           </span>
         </div>
         <div ng-show="loadingTags" class="pull-left loading small"></div>
-        <p class="text-subtle">* You can use tags to filter blogs.</p>
-      </form>
+        <p class="text-subtle">* You can use title, description, tags and date to filter blogs.</p>
+      </div>
     </div>
   </div>
 </div>
