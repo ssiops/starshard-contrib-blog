@@ -27,7 +27,7 @@
       <div class="cbg">
         <h3>Search</h3>
         <div class="input-group">
-          <input type="text" class="form-control" autocomplete="off" ng-model="search" placeholder="Search" typeahead="tag for tag in getTags($viewValue) | filter:$viewValue | limitTo:8" typeahead-loading="loadingTags" typeahead-wait-ms="800">
+          <input type="text" class="form-control" autocomplete="off" ng-model="search" placeholder="Search" typeahead="tag for tag in tags | filter:$viewValue | limitTo:8">
           <span class="input-group-btn">
             <button class="btn btn-primary disabled" type="button"><i class="glyphicon glyphicon-search"></i></button>
           </span>

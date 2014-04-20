@@ -14,7 +14,7 @@
           <span class="label label-default" ng-repeat="tag in tags">\{{tag}} <a href="#" ng-click="removeTag($index)"><i class="glyphicon glyphicon-remove"></i></a></span>
           <div class="input-tag">
             <button class="btn btn-primary btn-xs" type="button" ng-click="addTag()"><i class="glyphicon glyphicon-plus"></i></button>
-            <input type="text" id="tags" name="tags" placeholder="Tag" ng-model="input" ng-blur="focus=false" ng-focus="focus=true" typeahead="tag for tag in getTags($viewValue) | filter:$viewValue | limitTo:8" typeahead-loading="loadingTags" typeahead-wait-ms="500">
+            <input type="text" id="tags" name="tags" placeholder="Tag" ng-model="input" ng-blur="focus=false" ng-focus="focus=true" typeahead="tag for tag in prevTags | filter:$viewValue | limitTo:8">
           </div>
         </div>
       </div>

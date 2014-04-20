@@ -16,15 +16,15 @@ function blogListCtrl ($scope, $window, $http, $alertService) {
     });
   }
 
-  $scope.getTags = function (name) {
-    return $http.get('/blog/archive/tags', {params: {t: name}}).then(function (res) {
-      if (res.data.err)
-        console.log(res.data.err);
-      if (res.data.msg)
-        console.log(res.data.msg);
-      return res.data.list;
+  $scope.getTags = function () {
+    $http.get('/blog/archive/tags').success(function (data, status) {
+      if (data.list)
+        $scope.tags = data.list;
+      if (data.msg)
+        $alertService.send(data.msg);
     });
   }
 
   $scope.getPosts();
+  $scope.getTags();
 }

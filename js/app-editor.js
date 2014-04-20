@@ -1,8 +1,12 @@
-angular.module('blog', ['angularFileUpload', 'ui.bootstrap']);
+angular.module('blog', ['angularFileUpload', 'ui.bootstrap']).
+  factory('$alertService', ['$rootScope', function ($rootScope) {
+    return alertService;
+  }]);
 
 function editorCtrl ($scope, $window, $http, $modal, $alertService) {
   $scope.err = {};
   $scope.tags = [];
+  $scope.prevTags = [];
   $scope.input = '';
   $scope.focus = false;
   var tags = angular.element($window.document.getElementById('blog-tags')).attr('data-value');
@@ -76,13 +80,12 @@ function editorCtrl ($scope, $window, $http, $modal, $alertService) {
         $alertService.send(data.msg);
     });
   }
-  $scope.getTags = function (name) {
-    return $http.get('/blog/archive/tags', {params: {t: name}}).then(function (res) {
-      if (res.data.err)
-        console.log(res.data.err);
-      if (res.data.msg)
-        console.log(res.data.msg);
-      return res.data.list;
+  $scope.getTags = function () {
+    $http.get('/blog/archive/tags').success(function (data, status) {
+      if (data.list)
+        $scope.prevTags = data.list;
+      if (data.msg)
+        $alertService.send(data.msg);
     });
   }
   $scope.openModal = function () {
@@ -96,6 +99,8 @@ function editorCtrl ($scope, $window, $http, $modal, $alertService) {
     }, function () {
     });
   }
+
+  $scope.getTags()
 }
 
 function modalCtrl ($scope, $modalInstance, $fileUploader) {
