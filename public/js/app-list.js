@@ -1,4 +1,4 @@
-function blogListCtrl ($scope, $window, $http) {
+function blogListCtrl ($scope, $window, $http, $alertService) {
   $scope.remove = function (index) {
     $http.delete('/blog/archive/' + $scope.blogs[index].displaytitle).success(function (data, status) {
       if (status == 204)
@@ -11,8 +11,8 @@ function blogListCtrl ($scope, $window, $http) {
       angular.element($window.document.getElementById('blogs-loading')).remove();
       if (data.list)
         $scope.blogs = data.list;
-      if (data.err)
-        console.log(data.err);
+      if (data.msg)
+        $alertService.send(data.msg);
     });
   }
 

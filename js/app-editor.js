@@ -1,6 +1,6 @@
 angular.module('blog', ['angularFileUpload', 'ui.bootstrap']);
 
-function editorCtrl ($scope, $window, $http, $modal) {
+function editorCtrl ($scope, $window, $http, $modal, $alertService) {
   $scope.err = {};
   $scope.tags = [];
   $scope.input = '';
@@ -72,6 +72,8 @@ function editorCtrl ($scope, $window, $http, $modal) {
       if (data && data.redirect) {
         $window.location.href = '/blog/archive/' + data.redirect + '/';
       }
+      if (data.msg)
+        $alertService.send(data.msg);
     });
   }
   $scope.getTags = function (name) {
@@ -92,7 +94,6 @@ function editorCtrl ($scope, $window, $http, $modal) {
     modalInstance.result.then(function (src) {
       $scope.insert({simple: '![ALT](' + src + ')'});
     }, function () {
-      console.info('Modal dismissed at: ' + new Date());
     });
   }
 }

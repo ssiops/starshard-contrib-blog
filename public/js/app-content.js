@@ -1,4 +1,4 @@
-function contentCtrl($scope, $window, $http) {
+function contentCtrl($scope, $window, $http, $alertService) {
   $scope.newComment = '';
   $scope.err = {};
   $scope.comments = [];
@@ -10,12 +10,12 @@ function contentCtrl($scope, $window, $http) {
     });
   }
   $scope.getPosts = function () {
-    $http.get('/blog/archive').success(function (data, status) {
+    $http.get('/blog/archive', {params: {l:3}}).success(function (data, status) {
       angular.element($window.document.getElementById('other-posts-loading')).remove();
       if (data.list)
         $scope.otherposts = data.list;
-      if (data.err)
-        console.log(data.err);
+      if (data.msg)
+        $alertService.send(data.msg);
     });
   }
   $scope.getComments = function () {
@@ -23,10 +23,8 @@ function contentCtrl($scope, $window, $http) {
       angular.element($window.document.getElementById('comments-loading')).remove();
       if (data.comments)
         $scope.comments = data.comments;
-      if (data.err)
-        console.log(data.err);
       if (data.msg)
-        console.log(data.msg);
+        $alertService.send(data.msg);
     });
   }
   $scope.postComment = function () {
@@ -36,20 +34,17 @@ function contentCtrl($scope, $window, $http) {
     $http.put('/blog/archive/' + $scope.displaytitle + '/comments', {content: $scope.newComment}).success(function (data, status) {
       if (data.comment)
         $scope.comments.push(data.comment);
-      if (data.err)
-        console.log(data.err);
       if (data.msg)
-        console.log(data.msg);
+        $alertService.send(data.msg);
     });
   }
   $scope.removeComment = function ($index) {
     $http.delete('/blog/archive/' + $scope.displaytitle + '/comments/' + $scope.comments[$index]._id).success(function (data, status) {
       if (status == 202)
         $scope.comments.splice($index, 1);
-      if (data.err)
-        console.log(data.err);
+      $alertService.send({msg: 'The comment was successfully removed.', style: 'success'});
       if (data.msg)
-        console.log(data.msg);
+        $alertService.send(data.msg);
     });
   }
 }

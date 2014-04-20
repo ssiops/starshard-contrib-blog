@@ -25,7 +25,7 @@ module.exports = [
         return res.status(403).render('403.hbs', {path: req.originalUrl});
       }
       db.find({displaytitle: req.params.title}, 'blogs', {limit: 1}, function (err, docs) {
-        if (err) return console.log(util.inspect(err));
+        if (err) throw err;
         if (docs.length < 1)
           return res.status(404).render('404.hbs', {path: req.originalUrl});
         view.send(res, 'editor.hbs', {
@@ -41,10 +41,13 @@ module.exports = [
     method: 'DELETE',
     respond: function (req, res, db) {
       if (typeof req.session.user === 'undefined' || req.session.user.admin !== true) {
-        return res.status(403).send({err: 'Forbidden.'});
+        return res.status(403).send({err: 'Forbidden.', msg: {msg: 'You do not have permission to perform this action.', style:'danger'}});
       }
       db.remove({displaytitle: req.params.title}, 'blogs', {}, function (err) {
-        if (err) return console.log(util.inspect(err));
+        if (err) {
+          console.log(util.inspect(err));
+          return res.send({err: err, msg: {msg: 'An error has occurred. Please try again later.', style:'danger'}});
+        }
         return res.status(204).send();
       });
     }
@@ -54,11 +57,14 @@ module.exports = [
     method: 'PUT',
     respond: function (req, res, db) {
       if (typeof req.session.user === 'undefined' || req.session.user.admin !== true) {
-        return res.status(403).send({err: 'Forbidden.'});
+        return res.status(403).send({err: 'Forbidden.', msg: {msg: 'You do not have permission to perform this action.', style:'danger'}});
       }
       var blog = new Blog(req.body);
       db.update({displaytitle: blog.displaytitle}, blog, 'blogs', {upsert: true}, function (err) {
-        if (err) return console.log(util.inspect(err));
+        if (err) {
+          console.log(util.inspect(err));
+          return res.send({err: err, msg: {msg: 'An error has occurred. Please try again later.', style:'danger'}});
+        }
         return res.send({redirect: blog.displaytitle});
       });
     }

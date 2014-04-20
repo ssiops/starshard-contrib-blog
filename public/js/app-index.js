@@ -11,7 +11,7 @@ function carouselCtrl ($scope, $http) {
   sync();
 }
 
-function blogThumbCtrl ($scope, $http, $window) {
+function blogThumbCtrl ($scope, $http, $window, $alertService) {
   $scope.getBlogs = function (limit, tags) {
     var opt = {params: {}};
     if (typeof limit !== 'undefined')
@@ -22,8 +22,10 @@ function blogThumbCtrl ($scope, $http, $window) {
       angular.element($window.document.getElementById($scope.loading)).remove();
       if (data.list)
         $scope.blogs = data.list;
-      if (data.err)
-        console.log(data.err);
+      if (data.err && data.msg)
+        return $alertService.send(data.msg);
+      if (data.msg)
+        $scope.msg = data.msg;
     });
   }
 }

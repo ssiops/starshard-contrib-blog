@@ -17,6 +17,11 @@
   <div class="row" ng-controller="blogThumbCtrl" ng-init="loading='loading-featured';getBlogs(2, 'Featured')">
     <h1><span class="h-indicator cbg">Featured</span></h1>
     <div id="loading-featured" class="loading col-md-12"></div>
+    <div class="col-md-4" ng-show="msg">
+      <div class="cbg">
+        <p>\{{msg}}</p>
+      </div>
+    </div>
     <div class="col-md-6" ng-repeat="blog in blogs">
       <div class="cbg">
         <h3><a href="/blog/archive/\{{blog.displaytitle}}/">\{{blog.title}}</a></h3>
