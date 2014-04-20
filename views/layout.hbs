@@ -31,7 +31,11 @@
     <script src="/blog/js/angular/ui-bootstrap{{#if production}}.min{{/if}}.js"></script>
     <script src="/blog/js/application{{#if production}}.min{{/if}}.js"></script>
 
-    <div class="float-msg"></div>
+    <div class="float-msg active" ng-controller="floatMsgCtrl" ng-show="show">
+      <div class="alert alert-\{{style}}">
+        <p>\{{msg}} <a href="#" class="float-msg-dismiss" ng-click="show=false;">Dismiss</a></p>
+      </div>
+    </div>
 
     {{> nav }}
 
