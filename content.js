@@ -63,9 +63,9 @@ module.exports = [
         if (err) return console.log(util.inspect(err));
         if (docs.length < 1) {
           if (req.accepts('application/json', 'text/html') == 'application/json')
-            res.send({msg: 'No blogs were found.'});
+            return res.send({msg: 'No blogs were found.'});
           else
-            view.send(res, 'list.hbs', {
+            return view.send(res, 'list.hbs', {
               nav: {archive: true},
               user: req.session.user
             });

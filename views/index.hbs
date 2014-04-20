@@ -13,9 +13,29 @@
   </div>
 </div>
 
-
 <div class="container spaced-top">
-  <div class="cbg">
-    <h1>Hello, blog.</h1>
+  <div class="row" ng-controller="blogThumbCtrl" ng-init="loading='loading-featured';getBlogs(2, 'Featured')">
+    <h1><span class="h-indicator cbg">Featured</span></h1>
+    <div id="loading-featured" class="loading col-md-12"></div>
+    <div class="col-md-6" ng-repeat="blog in blogs">
+      <div class="cbg">
+        <h3><a href="/blog/archive/\{{blog.displaytitle}}/">\{{blog.title}}</a></h3>
+        <p><span class="label label-default" ng-repeat="tag in blog.tags">\{{tag}}</span></p>
+        <p>\{{blog.abstract}}</p>
+        <p class="blog-date">\{{blog.date}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-controller="blogThumbCtrl" ng-init="loading='loading-recent';getBlogs(3)">
+    <h1><span class="h-indicator cbg">Recent</span></h1>
+    <div id="loading-recent" class="loading col-md-12"></div>
+    <div class="col-md-4" ng-repeat="blog in blogs">
+      <div class="cbg">
+        <h3><a href="/blog/archive/\{{blog.displaytitle}}/">\{{blog.title}}</a></h3>
+        <p><span class="label label-default" ng-repeat="tag in blog.tags">\{{tag}}</span></p>
+        <p>\{{blog.abstract}}</p>
+        <p class="blog-date">\{{blog.date}}</p>
+      </div>
+    </div>
   </div>
 </div>

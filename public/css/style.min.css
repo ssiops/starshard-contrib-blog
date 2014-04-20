@@ -86,3 +86,15 @@
 .img-drop-zone input[type="file"] {
   display: inline-block;
 }
+.h-indicator {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.h-indicator:before {
+  content: '';
+  display: inline-block;
+  width: 0.15em;
+  height: 0.8em;
+  margin-right: 0.2em;
+  background-color: #33b5e5;
+}
