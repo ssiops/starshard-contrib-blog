@@ -1,8 +1,6 @@
 function carouselCtrl ($scope, $http) {
   $scope.interval = 10000;
-  $scope.slides = [
-    {image: 'loading-haven.jpg', text: 'Haven'}
-  ];
+  $scope.slides = [];
   var sync = function () {
     $http.get('/usercontent/blog/carousel.json').success(function (data) {
       $scope.slides = $scope.slides.concat(data.list);
