@@ -1,6 +1,6 @@
 angular.module('blog', ['angularFileUpload', 'ui.bootstrap']).
   factory('$alertService', ['$rootScope', function ($rootScope) {
-    return alertService;
+    return alertService($rootScope);
   }]);
 
 function carouselSetting ($scope, $http, $fileUploader, $alertService) {
