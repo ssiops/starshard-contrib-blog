@@ -4,7 +4,7 @@ function carouselCtrl ($scope, $http) {
     {image: 'loading-haven.jpg', text: 'Haven'}
   ];
   var sync = function () {
-    $http.get('/blog/carousel').success(function (data) {
+    $http.get('/usercontent/blog/carousel.json').success(function (data) {
       $scope.slides = $scope.slides.concat(data.list);
     });
   }

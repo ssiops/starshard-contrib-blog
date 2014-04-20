@@ -1,0 +1,35 @@
+<script src="/blog/js/angular/angular-file-upload{{#if production}}.min{{/if}}.js"></script>
+<script src="/blog/js/app-carousel{{#if production}}.min{{/if}}.js"></script>
+
+<div class="container spaced-top" ng-controller="carouselSetting">
+  <div class="row">
+    <h1><span class="h-indicator cbg">Set carousel images <button class="btn btn-primary" ng-click="save()"><i class="glyphicon glyphicon-ok"></i></button></span></h1>
+    <div class="col-md-3" ng-repeat="slide in slides">
+      <div class="cbg">
+        <img ng-src="/usercontent/blog/\{{slide.image}}" alt="">
+        <div class="form-group spaced-top"><input type="text" class="form-control" placeholder="Title" ng-model="slides[$index].title"></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Description" ng-model="slides[$index].text"></div>
+        <div class="btn-group">
+          <button class="btn btn-default\{{$index == 0? ' disabled': ''}}" ng-click="forward($index)"><i class="glyphicon glyphicon-chevron-left"></i></button>
+          <button class="btn btn-default" ng-click="remove($index)"><i class="glyphicon glyphicon-remove"></i></button>
+          <button class="btn btn-default\{{$index == slides.length - 1? ' disabled': ''}}" ng-click="backward($index)"><i class="glyphicon glyphicon-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <h1><span class="h-indicator">Upload new image</span></h1>
+    <div class="col-md-12">
+      <div class="cbg">
+        <div class="well img-drop-zone" ng-file-drop ng-file-over>
+          Drop image here, or <button class="btn btn-primary" ng-click="showFileInput=1">Choose an image</button>
+          <input ng-file-select type="file" name="imageInput" id="imageInput" accept="image/*" ng-show="showFileInput">
+        </div>
+        <div class="progress progress-striped" style="">
+          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
