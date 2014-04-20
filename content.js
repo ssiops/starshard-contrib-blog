@@ -37,7 +37,7 @@ module.exports = [
         if (req.query.json)
           return res.send({blog: docs[0]});
         view.send(res, 'content.hbs', {
-          nav: {blog: true},
+          nav: {archive: true},
           user: req.session.user,
           blog: docs[0]
         });
