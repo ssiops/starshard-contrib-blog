@@ -1,6 +1,6 @@
 {
   "name": "starshard-contrib-blog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Blog platform built on starshard with angular.js",
   "author": {
     "name": "akasfei"

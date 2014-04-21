@@ -52,7 +52,7 @@ module.exports = [
     method: 'GET',
     respond: function (req, res, db) {
       var filter = {};
-      var option = {sort: {_id: 0}};
+      var option = {sort: {_id: -1}};
       if (typeof req.query.t !== 'undefined' && req.query.t.length > 0) {
         var tags = req.query.t.split('_');
         if (tags.length > 1)
